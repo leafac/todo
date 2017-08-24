@@ -28,21 +28,34 @@ public class TestTodoServer {
     // Setup
     //------------------------------------------------------------------------//
 
-    @Before
-    public void setup() throws Exception {
-        //Clear the database and then start the server
-        clearDB();
+    @BeforeClass
+    public static void setupBeforeClass() throws Exception {
+        //Set up the database
+        setupDB();
 
         //Start the main server
         Bootstrap.main(null);
         Spark.awaitInitialization();
     }
 
+    @AfterClass
+    public static void tearDownAfterClass() {
+        //Stop the server
+        Spark.stop();
+    }
+    //------------------------------------------------------------------------//
+    // Setup
+    //------------------------------------------------------------------------//
+
+    @Before
+    public void setup() throws Exception {
+        //Clear the database
+        clearDB();
+
+    }
+
     @After
     public void tearDown() {
-        //Stop the server
-        clearDB();
-        Spark.stop();
     }
 
     //------------------------------------------------------------------------//
@@ -215,15 +228,30 @@ public class TestTodoServer {
     // TodoApp Specific Helper Methods and classes
     //------------------------------------------------------------------------//
 
-    private void clearDB() {
+    private static Sql2o db;
+
+    private static void setupDB() {
         SQLiteDataSource dataSource = new SQLiteDataSource();
         dataSource.setUrl("jdbc:sqlite:todo.db");
 
-        Sql2o db = new Sql2o(dataSource);
+         db = new Sql2o(dataSource);
 
         try (Connection conn = db.open()) {
             String sql = "DROP TABLE IF EXISTS item" ;
             conn.createQuery(sql).executeUpdate();
+        }
+    }
+    private  void clearDB() {
+        SQLiteDataSource dataSource = new SQLiteDataSource();
+        dataSource.setUrl("jdbc:sqlite:todo.db");
+
+        try (Connection conn = db.open()) {
+            String sql = "DROP TABLE IF EXISTS item" ;
+            conn.createQuery(sql).executeUpdate();
+            sql = "CREATE TABLE IF NOT EXISTS item (item_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "                                 title TEXT, done BOOLEAN, created_on TIMESTAMP)" ;
+            conn.createQuery(sql).executeUpdate();
+
         }
     }
 
