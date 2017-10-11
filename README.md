@@ -1,7 +1,8 @@
 Todo Demo Web App
 =================
 
-This repository contains a small Todo list web application.  It is a complete web stack from frontend to server to database.
+This repository contains a small Todo list web application.  
+It is a complete web stack from frontend to server to database.
 
 Travis Status
 -------------

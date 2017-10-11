@@ -44,14 +44,13 @@ public class TodoService {
     }
 
     /**
-     * Fetch all todo entries in the list
+     * Fetch all to do entries in the list
      *
-     * @return List of all Todo entries
+     * @return List of all To do entries
      */
     public List<Todo> findAll() throws TodoServiceException {
-        String sql = "SELECT * FROM item" ;
         try (Connection conn = db.open()) {
-            List<Todo> todos =  conn.createQuery(sql)
+            List<Todo> todos =  conn.createQuery("SELECT * FROM item")
                 .addColumnMapping("item_id", "id")
                 .addColumnMapping("created_on", "createdOn")
                 .executeAndFetch(Todo.class);
@@ -63,7 +62,7 @@ public class TodoService {
     }
 
     /**
-     * Create a new Todo entry.
+     * Create a new To do entry.
      */
     public void createNewTodo(String body) throws TodoServiceException {
         Todo todo = new Gson().fromJson(body, Todo.class);
@@ -82,10 +81,10 @@ public class TodoService {
     }
 
     /**
-     * Find a todo entry given an Id.
+     * Find a to do entry given an Id.
      *
-     * @param id The id for the Todo entry
-     * @return The Todo corresponding to the id if one is found, otherwise null
+     * @param id The id for the To do entry
+     * @return The To do corresponding to the id if one is found, otherwise null
      */
     public Todo find(String id) throws TodoServiceException {
         String sql = "SELECT * FROM item WHERE item_id = :itemId ";
@@ -103,7 +102,7 @@ public class TodoService {
     }
 
     /**
-     * Update the specified Todo entry with new information
+     * Update the specified To do entry with new information
      */
     public Todo update(String todoId, String body) throws TodoServiceException {
         Todo todo = new Gson().fromJson(body, Todo.class);
@@ -112,7 +111,7 @@ public class TodoService {
         try (Connection conn = db.open()) {
             //Update the item
             conn.createQuery(sql)
-                    .bind(todo)  // one-liner to map all Todo object fields to query parameters :title etc
+                    .bind(todo)  // one-liner to map all To do object fields to query parameters :title etc
                     .addParameter("itemId", Integer.parseInt(todoId))
                     .executeUpdate();
 
