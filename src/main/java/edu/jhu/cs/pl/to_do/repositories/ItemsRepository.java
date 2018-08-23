@@ -17,7 +17,12 @@ public class ItemsRepository {
         this.database = database;
         var connection = database.getConnection();
         var statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS items (id integer PRIMARY KEY AUTOINCREMENT, description text NOT NULL)");
+        if (database instanceof SQLiteDataSource) {
+            statement.execute("CREATE TABLE IF NOT EXISTS items (id integer PRIMARY KEY AUTOINCREMENT, description text NOT NULL)");
+        }
+        else if (database instanceof PGSimpleDataSource) {
+            statement.execute("CREATE TABLE IF NOT EXISTS items (id SERIAL PRIMARY KEY, description text NOT NULL)");
+        }
         statement.close();
         connection.close();
     }
