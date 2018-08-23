@@ -11,10 +11,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ItemsController {
-    public static void getItems(Context ctx) throws SQLException {
-        ctx.json(Server.getItemsRepository().getItems());
-    }
-
     public static void newItem(Context ctx) throws SQLException, IOException {
         var itemParameter = Server.getJson().readTree(ctx.body());
         if (itemParameter == null || itemParameter.size() != 1 ||
@@ -25,6 +21,10 @@ public class ItemsController {
         Server.getItemsRepository().save(item);
         ctx.status(201);
         ctx.result(Integer.toString(item.getId()));
+    }
+
+    public static void getItems(Context ctx) throws SQLException {
+        ctx.json(Server.getItemsRepository().getItems());
     }
 
     public static void editItemDescription(Context ctx) throws IOException, SQLException, ItemsRepository.NonExistingItemException {

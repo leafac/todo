@@ -22,18 +22,6 @@ public class ItemsRepository {
         connection.close();
     }
 
-    public List<Item> getItems() throws SQLException {
-        var items = new ArrayList<Item>();
-        var connection = database.getConnection();
-        var statement = connection.createStatement();
-        var result = statement.executeQuery("SELECT id, description FROM items ORDER BY id");
-        while (result.next()) items.add(new Item(result.getInt("id"), result.getString("description")));
-        result.close();
-        statement.close();
-        connection.close();
-        return items;
-    }
-
     public void save(Item item) throws SQLException {
         var connection = database.getConnection();
         if (item.getId() == 0) {
@@ -56,6 +44,18 @@ public class ItemsRepository {
             statement.close();
         }
         connection.close();
+    }
+
+    public List<Item> getItems() throws SQLException {
+        var items = new ArrayList<Item>();
+        var connection = database.getConnection();
+        var statement = connection.createStatement();
+        var result = statement.executeQuery("SELECT id, description FROM items ORDER BY id");
+        while (result.next()) items.add(new Item(result.getInt("id"), result.getString("description")));
+        result.close();
+        statement.close();
+        connection.close();
+        return items;
     }
 
     public Item getItem(int itemIdentifier) throws SQLException, NonExistingItemException {

@@ -6,54 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get Items",
-			"item": [
-				{
-					"name": "Successful",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "6da57b43-fca7-4ce4-a9ca-ed0b5e2e38b6",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-									"",
-									"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"));",
-									"",
-									"pm.test(\"Response is a To Do list\", () => {",
-									"    const list = pm.response.json();",
-									"    pm.expect(list).to.be.an.instanceof(Array);",
-									"    for (const item of list) {",
-									"        pm.expect(item).to.an(\"object\").that.has.all.keys(\"id\", \"description\");",
-									"        pm.expect(item[\"id\"]).to.be.a(\"number\");",
-									"        pm.expect(item[\"description\"]).to.be.a(\"string\");",
-									"    }",
-									"});",
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "New Item",
 			"item": [
 				{
@@ -62,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fd12574d-163c-4cd1-857f-19eff2095202",
+								"id": "b9b28a8f-a21c-4f9f-92f0-c9522d3a9fe9",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
@@ -72,6 +24,13 @@
 									"pm.test(\"Response is a To Do item identifier\", () => {",
 									"    pm.expect(pm.response.text()).to.match(/\\d+/);",
 									"});",
+									"",
+									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
+									"    pm.test(\"Create a To Do item\", () => {",
+									"        const item = _.find(response.json(), item => item[\"id\"] === parseInt(pm.response.text()));",
+									"        pm.expect(item[\"description\"]).to.equal(\"Design API\");",
+									"    })",
+									");",
 									""
 								]
 							}
@@ -370,6 +329,54 @@
 			]
 		},
 		{
+			"name": "Get Items",
+			"item": [
+				{
+					"name": "Successful",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5df2848-4368-4b09-81b2-0db9036a0fe4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+									"",
+									"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"));",
+									"",
+									"pm.test(\"Response is a To Do list\", () => {",
+									"    const list = pm.response.json();",
+									"    pm.expect(list).to.be.an.instanceof(Array).that.is.not.empty;",
+									"    for (const item of list) {",
+									"        pm.expect(item).to.an(\"object\").that.has.all.keys(\"id\", \"description\");",
+									"        pm.expect(item[\"id\"]).to.be.a(\"number\");",
+									"        pm.expect(item[\"description\"]).to.be.a(\"string\");",
+									"    }",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Edit Item Description",
 			"item": [
 				{
@@ -378,10 +385,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b1d9d793-2572-477a-bd10-397ee9bad274",
+								"id": "b1538c02-2c9b-449a-9718-0026ef3b9fe9",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 204\", () => pm.response.to.have.status(204));",
+									"",
+									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
+									"    pm.test(\"Edit the To Do item\", () => {",
+									"        const item = _.find(response.json(), item => item[\"id\"] === pm.variables.get(\"itemIdentifier\"));",
+									"        pm.expect(item[\"description\"]).to.equal(\"Implement API\");",
+									"    })",
+									");",
 									""
 								]
 							}
@@ -735,10 +749,16 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b1d9d793-2572-477a-bd10-397ee9bad274",
+								"id": "9441c717-4868-4554-94bf-32f4683022f0",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 204\", () => pm.response.to.have.status(204));",
+									"",
+									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
+									"    pm.test(\"Delete the To Do item\", () => {",
+									"        pm.expect(_.find(response.json(), item => item[\"id\"] === pm.variables.get(\"itemIdentifier\"))).to.be.undefined;",
+									"    })",
+									");",
 									""
 								]
 							}
@@ -818,7 +838,7 @@
 				"id": "c7abb2d8-cae5-4392-9bd7-6d5e8a12f057",
 				"type": "text/javascript",
 				"exec": [
-					"pm.sendRequest({ url: `${pm.variables.get(\"host\")}/items`, method: \"POST\" }, (err, response) => pm.variables.set(\"itemIdentifier\", parseInt(response.text())));"
+					"pm.sendRequest({ url: `${pm.variables.get(\"host\")}/items`, method: \"POST\", body: JSON.stringify({ description: \"Implement server\" }) }, (err, response) => pm.variables.set(\"itemIdentifier\", parseInt(response.text())));"
 				]
 			}
 		},
@@ -835,7 +855,7 @@
 	],
 	"variable": [
 		{
-			"id": "cb8fed9f-506d-4f6a-be5b-50eebb615a25",
+			"id": "b3286590-94e6-4d97-a4f9-f360c36740a9",
 			"key": "host",
 			"value": "https://oose-to-do.herokuapp.com",
 			"type": "string"

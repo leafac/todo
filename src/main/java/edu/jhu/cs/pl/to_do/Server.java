@@ -24,8 +24,8 @@ public class Server {
         Javalin.create()
                 .routes(() -> {
                     path("items", () -> {
-                        get(ItemsController::getItems);
                         post(ItemsController::newItem);
+                        get(ItemsController::getItems);
                         path(":item-identifier", () -> {
                             put(ItemsController::editItemDescription);
                             delete(ItemsController::markItemAsDone);
