@@ -1,0 +1,5 @@
+/.idea
+/*.iml
+/target
+/to-do.db
+/newman
