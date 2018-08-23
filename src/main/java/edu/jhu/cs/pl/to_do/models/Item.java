@@ -1,5 +1,7 @@
 package edu.jhu.cs.pl.to_do.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Item {
     private int id = 0;
     private String description = "";
@@ -24,6 +26,7 @@ public class Item {
         this.description = description;
     }
 
+    @JsonIgnore
     public boolean isPersisted() {
         return id != 0;
     }
