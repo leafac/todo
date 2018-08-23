@@ -14,21 +14,14 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b9b28a8f-a21c-4f9f-92f0-c9522d3a9fe9",
+								"id": "41869681-d6e7-4d57-a9c6-dabf95217410",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
 									"",
-									"pm.test(\"Content-Type is ‘text/plain’\", () => pm.response.to.have.header(\"Content-Type\", \"text/plain\"));",
-									"",
-									"pm.test(\"Response is a To Do item identifier\", () => {",
-									"    pm.expect(pm.response.text()).to.match(/\\d+/);",
-									"});",
-									"",
 									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
 									"    pm.test(\"Create a To Do item\", () => {",
-									"        const item = _.find(response.json(), item => item[\"id\"] === parseInt(pm.response.text()));",
-									"        pm.expect(item[\"description\"]).to.equal(\"Design API\");",
+									"        pm.expect(_.last(response.json()).description).to.equal(\"\");",
 									"    })",
 									");",
 									""
@@ -38,281 +31,10 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": \"Design API\" }"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Missing Field",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ }"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Null Field",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": null }"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Wrong Field Type",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": 2 }"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Empty Request Body",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ill-Formed JSON",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\":"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Wrong Type",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[]"
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Extra Fields",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7897d5de-75c5-4163-89df-acdf574d21c4",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": \"Design API\", \"extraField\": \"Error\" }"
 						},
 						"url": {
 							"raw": "{{host}}/items",
@@ -838,7 +560,11 @@
 				"id": "c7abb2d8-cae5-4392-9bd7-6d5e8a12f057",
 				"type": "text/javascript",
 				"exec": [
-					"pm.sendRequest({ url: `${pm.variables.get(\"host\")}/items`, method: \"POST\", body: JSON.stringify({ description: \"Implement server\" }) }, (err, response) => pm.variables.set(\"itemIdentifier\", parseInt(response.text())));"
+					"pm.sendRequest({ url: `${pm.variables.get(\"host\")}/items`, method: \"POST\" }, (err, response) =>",
+					"    pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
+					"        pm.variables.set(\"itemIdentifier\", _.last(response.json()).id)",
+					"    )",
+					");"
 				]
 			}
 		},
@@ -855,7 +581,7 @@
 	],
 	"variable": [
 		{
-			"id": "b3286590-94e6-4d97-a4f9-f360c36740a9",
+			"id": "d830a100-3342-4b8d-a969-f4e0faa5f402",
 			"key": "host",
 			"value": "https://oose-to-do.herokuapp.com",
 			"type": "string"

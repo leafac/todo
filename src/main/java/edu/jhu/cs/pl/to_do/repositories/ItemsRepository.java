@@ -24,22 +24,16 @@ public class ItemsRepository {
 
     public void save(Item item) throws SQLException {
         var connection = database.getConnection();
-        if (item.getId() == 0) {
-            var insertStatement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setString(1, item.getDescription());
-            insertStatement.executeUpdate();
-            insertStatement.close();
-            var idStatement = connection.createStatement();
-            var idResultSet = idStatement.executeQuery("SELECT last_insert_rowid()");
-            idResultSet.next();
-            item.setId(idResultSet.getInt(1));
-            idResultSet.close();
-            idStatement.close();
-        }
-        else {
+        if (item.isPersisted()) {
             var statement = connection.prepareStatement("UPDATE items SET description = ? WHERE id = ?");
             statement.setString(1, item.getDescription());
             statement.setInt(2, item.getId());
+            statement.executeUpdate();
+            statement.close();
+        }
+        else {
+            var statement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, item.getDescription());
             statement.executeUpdate();
             statement.close();
         }

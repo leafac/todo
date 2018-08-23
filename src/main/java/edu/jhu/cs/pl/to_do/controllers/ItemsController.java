@@ -11,16 +11,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ItemsController {
-    public static void newItem(Context ctx) throws SQLException, IOException {
-        var itemParameter = Server.getJson().readTree(ctx.body());
-        if (itemParameter == null || itemParameter.size() != 1 ||
-                ! itemParameter.hasNonNull("description") ||
-                ! itemParameter.get("description").isTextual())
-            throw new BadRequestResponse();
-        var item = new Item(itemParameter.get("description").asText());
-        Server.getItemsRepository().save(item);
+    public static void newItem(Context ctx) throws SQLException {
+        Server.getItemsRepository().save(new Item());
         ctx.status(201);
-        ctx.result(Integer.toString(item.getId()));
     }
 
     public static void getItems(Context ctx) throws SQLException {

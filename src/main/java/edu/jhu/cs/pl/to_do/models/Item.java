@@ -1,24 +1,19 @@
 package edu.jhu.cs.pl.to_do.models;
 
 public class Item {
-    private int id;
-    private String description;
+    private int id = 0;
+    private String description = "";
 
     public Item(int id, String description) {
         this.id = id;
         this.description = description;
     }
 
-    public Item(String description) {
-        this.description = description;
+    public Item() {
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -27,5 +22,9 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isPersisted() {
+        return id != 0;
     }
 }

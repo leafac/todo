@@ -30,3 +30,13 @@ input[type="text"] {
     width: calc(100% - 30px);
     margin-left: 10px;
 }
+
+#plus {
+    text-align: center;
+}
+
+#plus a {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
