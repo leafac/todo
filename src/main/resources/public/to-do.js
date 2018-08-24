@@ -44,20 +44,20 @@ const render = items => {
     const step = (items, itemsDoms) => {
         if (itemsDoms.length === 0) return items.forEach(item => itemsDom.appendChild(newItemDom(item)));
         if (items.length === 0) return itemsDoms.forEach(itemDom => removeItemDom(itemDom));
-        const item = items[0];
-        const itemDom = itemsDoms[0];
+        const [item, ...itemsRest] = items;
+        const [itemDom, ...itemsDomsRest] = itemsDoms;
         if (item.id == itemDom.id) {
             const text = itemDom.querySelector("input[type=\"text\"]");
             if (item.description !== text.value && text !== document.activeElement) text.value = item.description;
-            step(items.slice(1), itemsDoms.slice(1));
+            step(itemsRest, itemsDomsRest);
         }
         else if (item.id > itemDom.id) {
             removeItemDom(itemDom);
-            step(items, itemsDoms.slice(1));
+            step(items, itemsDomsRest);
         }
         else if (item.id < itemDom.id) {
             itemsDoms.insertBefore(newItemDom(item), itemDom);
-            step(items.slice(1), itemsDoms);
+            step(itemsRest, itemsDoms);
         }
     };
 
