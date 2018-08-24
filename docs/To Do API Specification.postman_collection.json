@@ -14,16 +14,27 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "41869681-d6e7-4d57-a9c6-dabf95217410",
+								"id": "a675cf23-c2a4-44ea-b2ed-e03770a30fbd",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
 									"",
 									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
 									"    pm.test(\"Create a To Do item\", () => {",
-									"        pm.expect(_.last(response.json()).description).to.equal(\"\");",
+									"        pm.expect(response.json()).to.have.lengthOf(JSON.parse(pm.variables.get(\"itemsBefore\")).length + 1);",
 									"    })",
 									");",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "81a86402-ff6c-4c6c-80d0-b7924ea1959f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) => pm.variables.set(\"itemsBefore\", response.text()));",
 									""
 								]
 							}
@@ -59,7 +70,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d5df2848-4368-4b09-81b2-0db9036a0fe4",
+								"id": "7288d801-90b1-4380-9540-16110578cb7d",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
@@ -68,11 +79,11 @@
 									"",
 									"pm.test(\"Response is a To Do list\", () => {",
 									"    const list = pm.response.json();",
-									"    pm.expect(list).to.be.an.instanceof(Array).that.is.not.empty;",
+									"    pm.expect(list).to.be.an(\"array\").that.is.not.empty;",
 									"    for (const item of list) {",
 									"        pm.expect(item).to.an(\"object\").that.has.all.keys(\"id\", \"description\");",
-									"        pm.expect(item[\"id\"]).to.be.a(\"number\");",
-									"        pm.expect(item[\"description\"]).to.be.a(\"string\");",
+									"        pm.expect(item.id).to.be.a(\"number\");",
+									"        pm.expect(item.description).to.be.a(\"string\");",
 									"    }",
 									"});",
 									""
@@ -107,15 +118,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b1538c02-2c9b-449a-9718-0026ef3b9fe9",
+								"id": "879d1c08-1725-456f-b579-1e6ac28e9b6d",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 204\", () => pm.response.to.have.status(204));",
 									"",
 									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
 									"    pm.test(\"Edit the To Do item\", () => {",
-									"        const item = _.find(response.json(), item => item[\"id\"] === pm.variables.get(\"itemIdentifier\"));",
-									"        pm.expect(item[\"description\"]).to.equal(\"Implement API\");",
+									"        const item = _.find(response.json(), item => item.id === pm.variables.get(\"itemIdentifier\"));",
+									"        pm.expect(item.description).to.equal(\"Implement API\");",
 									"    })",
 									");",
 									""
@@ -471,14 +482,14 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9441c717-4868-4554-94bf-32f4683022f0",
+								"id": "22a7ce41-099f-4cbe-9298-7f10ac888942",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 204\", () => pm.response.to.have.status(204));",
 									"",
 									"pm.sendRequest(`${pm.variables.get(\"host\")}/items`, (err, response) =>",
 									"    pm.test(\"Delete the To Do item\", () => {",
-									"        pm.expect(_.find(response.json(), item => item[\"id\"] === pm.variables.get(\"itemIdentifier\"))).to.be.undefined;",
+									"        pm.expect(_.find(response.json(), item => item.id === pm.variables.get(\"itemIdentifier\"))).to.be.undefined;",
 									"    })",
 									");",
 									""
@@ -488,12 +499,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -527,12 +533,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -581,7 +582,7 @@
 	],
 	"variable": [
 		{
-			"id": "3377eba5-db74-4349-bd70-da847cb3ad9b",
+			"id": "9fea2f85-3bca-45e2-ab85-d864bba03998",
 			"key": "host",
 			"value": "https://oose-to-do.herokuapp.com",
 			"type": "string"
