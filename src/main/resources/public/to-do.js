@@ -1,81 +1,67 @@
-let previousList = [];
-let currentList = [];
-
 window.addEventListener("load", () => poll());
 
 const poll = async () => {
-    previousList = currentList;
-    currentList = await (await fetch("/items")).json();
-    render();
+    render(await (await fetch("/items")).json());
     await sleep(200);
     poll();
 };
 
-const render = () => {
-    const list = document.getElementById("list");
+const newItem = () => fetch("/items", { method: "POST" });
+
+const removeItem = item => fetch(`/items/${item.id}`, { method: "DELETE" });
+
+const updateItem = item => fetch(`/items/${item.id}`, { method: "PUT", body: JSON.stringify({ description: item.description}) });
+
+const render = items => {
+    const itemsDom = document.getElementById("items");
+
     const newItemDom = item => {
         const itemDom = document.createElement("li");
         itemDom.id = item.id;
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
-        checkbox.addEventListener("change", removeItemAnimation(itemDom));
-        checkbox.addEventListener("change", removeItem(item));
+        checkbox.addEventListener("change", () => removeItemDom(itemDom));
+        checkbox.addEventListener("change", () => removeItem(item));
         itemDom.appendChild(checkbox);
         const text = document.createElement("input");
         text.setAttribute("type", "text");
         text.value = item.description;
-        text.addEventListener("input", updateItem(item, text));
+        text.addEventListener("input", () => {
+            item.description = text.value;
+            updateItem(item);
+        });
         itemDom.appendChild(text);
         return itemDom;
     };
 
-    const removeItemAnimation = itemDom => async () => {
+    const removeItemDom = async itemDom => {
         itemDom.style.marginLeft = "100px";
         itemDom.style.opacity = 0;
         await sleep(300);
         itemDom.remove();
     };
 
-    // Work through ‘previousList’ and ‘currentList’ in sync, finding the differences.
-    for (let previousListIndex = 0, currentListIndex = 0; previousListIndex < previousList.length && currentListIndex < currentList.length; ) {
-        const previousListItem = previousList[previousListIndex];
-        const currentListItem = currentList[currentListIndex];
-        // Same item.
-        if (previousListItem.id === currentListItem.id) {
-            const inputText = document.getElementById(currentListItem.id).querySelector("input[type=\"text\"]");
-            if (previousListItem.description !== currentListItem.description && inputText !== document.activeElement) {
-                inputText.value = currentListItem.description;
-            }
-            previousListIndex++;
-            currentListIndex++;
+    const step = (items, itemsDoms) => {
+        if (itemsDoms.length === 0) return items.forEach(item => itemsDom.appendChild(newItemDom(item)));
+        if (items.length === 0) return itemsDoms.forEach(itemDom => removeItemDom(itemDom));
+        const item = items[0];
+        const itemDom = itemsDoms[0];
+        if (item.id == itemDom.id) {
+            const text = itemDom.querySelector("input[type=\"text\"]");
+            if (item.description !== text.value && text !== document.activeElement) text.value = item.description;
+            step(items.slice(1), itemsDoms.slice(1));
         }
-        // Item removed.
-        else if (previousListItem.id < currentListItem.id) {
-            removeItemAnimation(document.getElementById(previousListItem.id))();
-            previousListIndex++;
+        else if (item.id > itemDom.id) {
+            removeItemDom(itemDom);
+            step(items, itemsDoms.slice(1));
         }
-        // Item added.
-        else if (previousListItem.id > currentListItem.id) {
-            list.insertBefore(document.getElementById(previousListItem.id), newItemDom(currentListItem));
-            currentListIndex++;
+        else if (item.id < itemDom.id) {
+            itemsDoms.insertBefore(newItemDom(item), itemDom);
+            step(items.slice(1), itemsDoms);
         }
-    }
+    };
 
-    // Add remaining items to the end.
-    for (let currentListIndex = previousList.length; currentListIndex < currentList.length; currentListIndex++) {
-        list.appendChild(newItemDom(currentList[currentListIndex]));
-    }
-
-    // Remove remaining items at the end.
-    for (let previousListIndex = currentList.length; previousListIndex < currentList.length; previousListIndex++) {
-        document.getElementById(currentList[previousListIndex].id).remove();
-    }
+    step(items, Array.from(itemsDom.children));
 };
-
-const newItem = () => fetch("/items", { method: "POST" });
-
-const removeItem = item => () => fetch(`/items/${item.id}`, { method: "DELETE" });
-
-const updateItem = (item, text) => () => fetch(`/items/${item.id}`, { method: "PUT", body: JSON.stringify({ description: text.value}) });
 
 const sleep = duration => new Promise(resolve => window.setTimeout(resolve, duration));
