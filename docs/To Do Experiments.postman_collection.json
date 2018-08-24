@@ -38,59 +38,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Length",
-							"value": "79",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:01 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": "[{\"id\":1,\"description\":\"\"},{\"id\":2,\"description\":\"\"},{\"id\":3,\"description\":\"\"}]"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "make a new empty todo",
@@ -134,59 +82,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/items",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Length",
-							"value": "0",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:47:55 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "update the 3rd item",
@@ -226,59 +122,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": \"Implement API\" }"
-						},
-						"url": {
-							"raw": "{{host}}/items/{{itemIdentifier}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items",
-								"{{itemIdentifier}}"
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:06 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "delete the 3rd item",
@@ -313,54 +157,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/items/{{itemIdentifier}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items",
-								"{{itemIdentifier}}"
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:56 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "update the 5th item",
@@ -400,59 +197,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": \"Implement API\" }"
-						},
-						"url": {
-							"raw": "{{host}}/items/{{itemIdentifier}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items",
-								"{{itemIdentifier}}"
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:06 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "delete the 5th item",
@@ -487,54 +232,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Successful",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/items/{{itemIdentifier}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items",
-								"{{itemIdentifier}}"
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:56 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "attempt to update non-existing item 8343",
@@ -574,65 +272,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Non-Existing Item",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"description\": \"Implement API\" }"
-						},
-						"url": {
-							"raw": "{{host}}/items/non-existing-item",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"items",
-								"non-existing-item"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Length",
-							"value": "9",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 24 Aug 2018 16:48:50 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Javalin",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": "Not found"
-				}
-			]
+			"response": []
 		}
 	],
 	"event": [
