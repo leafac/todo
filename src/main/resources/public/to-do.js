@@ -20,7 +20,6 @@ const render = items => {
         itemDom.id = item.id;
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
-        checkbox.addEventListener("change", () => removeItemDom(itemDom));
         checkbox.addEventListener("change", () => removeItem(item));
         itemDom.appendChild(checkbox);
         const text = document.createElement("input");
