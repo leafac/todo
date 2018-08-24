@@ -24,7 +24,7 @@ body, input {
 }
 
 #items input[type="text"] {
-    width: calc(100% - 40px);
+    width: calc(100% - 50px);
     outline: none;
     border: none;
     border-radius: 0;
