@@ -21,31 +21,29 @@ public class ItemsController {
     }
 
     public static void editItemDescription(Context ctx) throws IOException, SQLException, ItemsRepository.NonExistingItemException {
+        var item = getItem(ctx);
         var itemParameter = Server.getJson().readTree(ctx.body());
         if (itemParameter == null || itemParameter.size() != 1 ||
                 ! itemParameter.hasNonNull("description") ||
                 ! itemParameter.get("description").isTextual())
             throw new BadRequestResponse();
-        int itemIdentifier;
-        try {
-            itemIdentifier = Integer.parseInt(ctx.pathParam("item-identifier"));
-        } catch (NumberFormatException e) {
-            throw new NotFoundResponse();
-        }
-        var item = Server.getItemsRepository().getItem(itemIdentifier);
         item.setDescription(itemParameter.get("description").asText());
         Server.getItemsRepository().save(item);
         ctx.status(204);
     }
 
     public static void markItemAsDone(Context ctx) throws ItemsRepository.NonExistingItemException, SQLException {
+        Server.getItemsRepository().deleteItem(getItem(ctx));
+        ctx.status(204);
+    }
+
+    private static Item getItem(Context ctx) throws ItemsRepository.NonExistingItemException, SQLException {
         int itemIdentifier;
         try {
             itemIdentifier = Integer.parseInt(ctx.pathParam("item-identifier"));
         } catch (NumberFormatException e) {
             throw new NotFoundResponse();
         }
-        Server.getItemsRepository().deleteItem(itemIdentifier);
-        ctx.status(204);
+        return Server.getItemsRepository().getItem(itemIdentifier);
     }
 }

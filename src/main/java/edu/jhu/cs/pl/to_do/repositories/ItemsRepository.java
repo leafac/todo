@@ -29,16 +29,17 @@ public class ItemsRepository {
 
     public void save(Item item) throws SQLException {
         var connection = database.getConnection();
-        if (item.isPersisted()) {
-            var statement = connection.prepareStatement("UPDATE items SET description = ? WHERE id = ?");
+        var itemIsNewToDatabase = item.getId() == 0;
+        if (itemIsNewToDatabase) {
+            var statement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)");
             statement.setString(1, item.getDescription());
-            statement.setInt(2, item.getId());
             statement.executeUpdate();
             statement.close();
         }
         else {
-            var statement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            var statement = connection.prepareStatement("UPDATE items SET description = ? WHERE id = ?");
             statement.setString(1, item.getDescription());
+            statement.setInt(2, item.getId());
             statement.executeUpdate();
             statement.close();
         }
@@ -70,11 +71,11 @@ public class ItemsRepository {
         return item;
     }
 
-    public void deleteItem(int itemIdentifier) throws SQLException, NonExistingItemException {
+    public void deleteItem(Item item) throws SQLException {
         var connection = database.getConnection();
         var statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
-        statement.setInt(1, itemIdentifier);
-        if (statement.executeUpdate() != 1) throw new NonExistingItemException();
+        statement.setInt(1, item.getId());
+        statement.executeUpdate();
         statement.close();
         connection.close();
     }

@@ -52,7 +52,8 @@ public class Server {
                     }
                     try {
                         itemsRepository = new ItemsRepository(database);
-                    } catch (SQLException e) {
+                    }
+                    catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 })
