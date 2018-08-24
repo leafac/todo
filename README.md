@@ -7,7 +7,7 @@ A [To Do sample application](https://oose-to-do.herokuapp.com). The implementati
 
 Run a local instance by importing this project in IntelliJ as a Maven project and starting `src/main/java/edu/jhu/cs/pl/to_do/Server.java`. In Postman, request the local server by switching to the `Development` environment as defined in `docs/Development.postman_environment.json`.
 
-We have made a video on how you can set up and run this app in the IntelliJ IDE; pick your format, [.m4v](http://pl.cs.jhu.edu/oose/movies/todo.m4v) or [.mov](http://pl.cs.jhu.edu/oose/movies/todo.m4v).
+We have made a video on how you can set up and run this app in the IntelliJ IDE; pick your format, [.m4v](http://pl.cs.jhu.edu/oose/movies/todo.m4v) or [.mov](http://pl.cs.jhu.edu/oose/movies/todo.mov).
 
 Contents
 --------
