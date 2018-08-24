@@ -1,8 +1,11 @@
 language: java
 jdk: openjdk10
 install:
-  - npm install -g newman
+- npm install -g newman
 script:
-  - java -jar target/to-do-1.0-jar-with-dependencies.jar &
-  - newman run 'docs/To Do API Specification.postman_collection.json' --environment 'docs/Development.postman_environment.json' --timeout 60000
-  - kill %1
+- >
+  mvn -DskipTests clean dependency:list install &&
+  mvn test &&
+  java -jar target/to-do-1.0-jar-with-dependencies.jar &
+  newman run 'docs/To Do API Specification.postman_collection.json' --environment 'docs/Development.postman_environment.json' timeout 60000 &&
+  kill %1
