@@ -42,8 +42,8 @@ const render = items => {
     };
 
     const step = (items, itemsDoms) => {
-        if (itemsDoms.length === 0) return items.forEach(item => itemsDom.appendChild(newItemDom(item)));
-        if (items.length === 0) return itemsDoms.forEach(itemDom => removeItemDom(itemDom));
+        if (itemsDoms.length === 0) return items.forEach(item => itemsDom.append(newItemDom(item)));
+        if (items.length === 0) return itemsDoms.forEach(removeItemDom);
         const [item, ...itemsRest] = items;
         const [itemDom, ...itemsDomsRest] = itemsDoms;
         if (item.id == itemDom.id) {
@@ -56,7 +56,7 @@ const render = items => {
             step(items, itemsDomsRest);
         }
         else if (item.id < itemDom.id) {
-            itemsDoms.insertBefore(newItemDom(item), itemDom);
+            itemDom.before(newItemDom(item));
             step(itemsRest, itemsDoms);
         }
     };
