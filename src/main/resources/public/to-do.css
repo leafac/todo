@@ -6,29 +6,29 @@ body {
 
 body, input {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-size: 16px;
     line-height: 2;
 }
 
-ul {
+#items {
     list-style: none;
     padding: 0;
 }
 
-li {
-    transition: margin-left 0.3s, opacity 0.3s, top 0.3s;
+#items li {
+    transition: margin-left 0.3s, opacity 0.3s;
 }
 
-input {
-    border: none;
-    border-bottom: 1px solid #ddd;
+#items input[type="checkbox"] {
+    width: 30px;
+}
+
+#items input[type="text"] {
+    width: calc(100% - 40px);
     outline: none;
-    font-size: 18px;
-}
-
-input[type="text"] {
-    width: 90%;
-    width: calc(100% - 30px);
-    margin-left: 10px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ddd;
 }
 
 #plus {
