@@ -7,5 +7,5 @@ script:
 - mvn test
 - >
   java -jar target/to-do-1.0-jar-with-dependencies.jar &
-  newman run 'docs/To Do API Specification.postman_collection.json' --environment 'docs/Development.postman_environment.json' timeout 60000 &&
+  newman run 'docs/To Do API Specification.postman_collection.json' --environment 'docs/Development.postman_environment.json' --timeout 60000 &&
   kill %1
