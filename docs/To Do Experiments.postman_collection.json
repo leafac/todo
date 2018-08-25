@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "eb8bd5ce-8cf2-487d-a465-3081784e7745",
+		"name": "To Do Experiments",
+		"description": "This collection contains some simple experiments to illustrate the todo RESTful protocol.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get the list of todo items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b230311-6721-4af7-b185-aa1fdb64cb9b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:7000/items",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make a new empty todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbcdba0d-c5b3-4268-bd7c-6b2b3fa1f0b1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33f1f1a4-14cd-4ab2-98ba-d788174e46de",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:7000/items",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update the 3rd item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f32364e9-da64-47d7-8137-131d91dd4708",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"description\": \"3rd item update!!\"}"
+				},
+				"url": {
+					"raw": "localhost:7000/items/3",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete the 3rd item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d58a38b6-dc10-4037-805c-705d0e026ee2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:7000/items/3",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update the 5th item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c81ba0b1-0de9-46ef-804c-ac7a3b32c994",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"description\": \"5th item getting updated!\"}"
+				},
+				"url": {
+					"raw": "localhost:7000/items/5",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete the 5th item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17af0f-4529-453a-a91a-6744d9d99f3d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:7000/items/5",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "attempt to update non-existing item 8343",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b8ce4ab-1d3f-4bb3-a59f-b3ea646dbf53",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"description\": \"failing update is the plan here\" }"
+				},
+				"url": {
+					"raw": "localhost:7000/items/8343",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"items",
+						"8343"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c7abb2d8-cae5-4392-9bd7-6d5e8a12f057",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ec8b7405-5710-44ac-8227-ee64499da7cf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
