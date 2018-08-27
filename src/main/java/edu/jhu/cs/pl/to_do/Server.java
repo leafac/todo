@@ -50,12 +50,7 @@ public class Server {
                         sqliteDatabase.setUrl("jdbc:sqlite:to-do.db");
                         database = sqliteDatabase;
                     }
-                    try {
-                        itemsRepository = new ItemsRepository(database);
-                    }
-                    catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                    itemsRepository = new ItemsRepository(database);
                 })
 
                 .start(System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 7000);
