@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ItemsController {
     public static void newItem(Context ctx) throws SQLException {
-        Server.getItemsRepository().save(new Item());
+        Server.getItemsRepository().create(new Item());
         ctx.status(201);
     }
 
@@ -28,7 +28,7 @@ public class ItemsController {
                 ! itemParameter.get("description").isTextual())
             throw new BadRequestResponse();
         item.setDescription(itemParameter.get("description").asText());
-        Server.getItemsRepository().save(item);
+        Server.getItemsRepository().update(item);
         ctx.status(204);
     }
 

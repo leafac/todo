@@ -27,22 +27,22 @@ public class ItemsRepository {
         connection.close();
     }
 
-    public void save(Item item) throws SQLException {
+    public void create(Item item) throws SQLException {
         var connection = database.getConnection();
-        var itemIsNewToDatabase = item.getId() == 0;
-        if (itemIsNewToDatabase) {
-            var statement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)");
-            statement.setString(1, item.getDescription());
-            statement.executeUpdate();
-            statement.close();
-        }
-        else {
-            var statement = connection.prepareStatement("UPDATE items SET description = ? WHERE id = ?");
-            statement.setString(1, item.getDescription());
-            statement.setInt(2, item.getId());
-            statement.executeUpdate();
-            statement.close();
-        }
+        var statement = connection.prepareStatement("INSERT INTO items (description) VALUES (?)");
+        statement.setString(1, item.getDescription());
+        statement.executeUpdate();
+        statement.close();
+        connection.close();
+    }
+
+    public void update(Item item) throws SQLException {
+        var connection = database.getConnection();
+        var statement = connection.prepareStatement("UPDATE items SET description = ? WHERE id = ?");
+        statement.setString(1, item.getDescription());
+        statement.setInt(2, item.getId());
+        statement.executeUpdate();
+        statement.close();
         connection.close();
     }
 
