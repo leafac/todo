@@ -1,4 +1,4 @@
-window.addEventListener("load", () => poll());
+window.addEventListener("load", () => { poll(); });
 
 const poll = async () => {
     render(await (await fetch("/items")).json());
@@ -6,11 +6,11 @@ const poll = async () => {
     poll();
 };
 
-const newItem = () => fetch("/items", { method: "POST" });
+const newItem = () => { fetch("/items", {method: "POST"}); };
 
-const removeItem = item => fetch(`/items/${item.id}`, { method: "DELETE" });
+const removeItem = item => { fetch(`/items/${item.id}`, { method: "DELETE" }) };
 
-const updateItem = item => fetch(`/items/${item.id}`, { method: "PUT", body: JSON.stringify({ description: item.description}) });
+const updateItem = item => { fetch(`/items/${item.id}`, { method: "PUT", body: JSON.stringify({ description: item.description}) }) };
 
 const render = items => {
     const itemsDom = document.getElementById("items");
@@ -20,7 +20,7 @@ const render = items => {
         itemDom.id = item.id;
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
-        checkbox.addEventListener("change", () => removeItem(item));
+        checkbox.addEventListener("change", () => { removeItem(item); });
         itemDom.appendChild(checkbox);
         const text = document.createElement("input");
         text.setAttribute("type", "text");
@@ -41,7 +41,7 @@ const render = items => {
     };
 
     const step = (items, itemsDoms) => {
-        if (itemsDoms.length === 0) return items.forEach(item => itemsDom.append(newItemDom(item)));
+        if (itemsDoms.length === 0) return items.forEach(item => { itemsDom.append(newItemDom(item)); });
         if (items.length === 0) return itemsDoms.forEach(removeItemDom);
         const [item, ...itemsRest] = items;
         const [itemDom, ...itemsDomsRest] = itemsDoms;
@@ -63,4 +63,4 @@ const render = items => {
     step(items, Array.from(itemsDom.children));
 };
 
-const sleep = duration => new Promise(resolve => window.setTimeout(resolve, duration));
+const sleep = duration => new Promise(resolve => { window.setTimeout(resolve, duration); });
