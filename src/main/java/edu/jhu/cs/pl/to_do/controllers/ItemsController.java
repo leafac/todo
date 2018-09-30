@@ -17,7 +17,7 @@ public class ItemsController {
     }
 
     public static void getItems(Context ctx) throws SQLException {
-        ctx.json(Server.getItemsRepository().getItems());
+        ctx.json(Server.getItemsRepository().getAll());
     }
 
     public static void editItemDescription(Context ctx) throws IOException, SQLException, ItemsRepository.NonExistingItemException {
@@ -33,7 +33,7 @@ public class ItemsController {
     }
 
     public static void markItemAsDone(Context ctx) throws ItemsRepository.NonExistingItemException, SQLException {
-        Server.getItemsRepository().deleteItem(getItem(ctx));
+        Server.getItemsRepository().delete(getItem(ctx));
         ctx.status(204);
     }
 
@@ -44,6 +44,6 @@ public class ItemsController {
         } catch (NumberFormatException e) {
             throw new NotFoundResponse();
         }
-        return Server.getItemsRepository().getItem(itemIdentifier);
+        return Server.getItemsRepository().get(itemIdentifier);
     }
 }

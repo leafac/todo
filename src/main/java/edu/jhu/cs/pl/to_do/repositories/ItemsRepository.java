@@ -46,7 +46,7 @@ public class ItemsRepository {
         connection.close();
     }
 
-    public List<Item> getItems() throws SQLException {
+    public List<Item> getAll() throws SQLException {
         var items = new ArrayList<Item>();
         var connection = database.getConnection();
         var statement = connection.createStatement();
@@ -58,7 +58,7 @@ public class ItemsRepository {
         return items;
     }
 
-    public Item getItem(int itemIdentifier) throws SQLException, NonExistingItemException {
+    public Item get(int itemIdentifier) throws SQLException, NonExistingItemException {
         var connection = database.getConnection();
         var statement = connection.prepareStatement("SELECT id, description FROM items WHERE id = ?");
         statement.setInt(1, itemIdentifier);
@@ -71,7 +71,7 @@ public class ItemsRepository {
         return item;
     }
 
-    public void deleteItem(Item item) throws SQLException {
+    public void delete(Item item) throws SQLException {
         var connection = database.getConnection();
         var statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
         statement.setInt(1, item.getId());
