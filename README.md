@@ -3,7 +3,7 @@ To Do
 
 [![Build Status](https://travis-ci.org/jhu-oose/todo.svg?branch=master)](https://travis-ci.org/jhu-oose/todo)
 
-[**Click here for a Getting Started video**](http://pl.cs.jhu.edu/oose/movies/todo.mp4)
+[**Click here for a Getting Started video**](https://archive.org/download/archive_leafac_Todo/todo.mp4)
 
 A [To Do sample application](https://oose-to-do.herokuapp.com). The implementation is divided in two parts: server and client. They communicate via the **To Do API**, specified in the Postman **Collection** at `docs/To Do API Specification.postman_collection.json`. Import the collection in Postman to read the API documentation.
 
